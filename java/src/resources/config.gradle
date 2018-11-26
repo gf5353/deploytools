@@ -1,0 +1,9 @@
+//自动生成上传配置
+def URL = "%s"
+def USER = "%s"
+def PASSWORD = "%s"
+def GROUPID = "%s"
+def ARTIFACTID = "%s"
+def VERSION = "%s"
+def PACKAGING = "%s"
+def REPOKEY = "%s"

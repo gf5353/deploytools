@@ -1,0 +1,60 @@
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+//def siteUrl = 'https://github.com/aoshiwenrou/NewsWithKotlin'  // 项目的主页
+def gitUrl = 'https://github.com/aoshiwenrou/NewsWithKotlin.git'  // Git仓库的url
+
+group = 'com.example.mylibrary'  // 一般写唯一的包名
+version = '0.0.5'  // 版本号
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name ''  //项目描述
+                url ''//siteUrl
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {  //填写的一些基本信息
+                        id 'gf5353'
+                        name 'Fei.Gu'
+                        email '562401002@qq.com'
+                    }
+                }
+
+                scm {
+                    connection ''//gitUrl
+                    developerConnection ''//gitUrl
+                    url ''//siteUrl
+                }
+            }
+
+        }
+    }
+}
+
+bintray {
+    user = 'gf5353'
+    key = '9ac187334dbc227f6d2e082316092f7cc3cfe4d2'
+    configurations = ['archives']
+    pkg {
+        version {
+            name = project.version
+            desc = '此处是描述'
+        }
+        repo = 'maven'    // bintray上创建的仓库名，我这用的maven
+        name = 'mylibrary'  //发布到JCenter上的项目名字
+        licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        publish = true
+    }
+}
