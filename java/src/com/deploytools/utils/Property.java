@@ -15,7 +15,7 @@ public class Property {
 
     public final static int NEXUS = 1;
     public final static int ARTIFACTORY = 2;
-
+    public final static int JCENTER = 3;
 
     public Property(String moduleName, String version) {
         this.moduleName = moduleName;

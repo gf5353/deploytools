@@ -17,12 +17,6 @@ import java.util.List;
 
 public class DeployFrame extends JFrame {
 
-
-    public static void main(String[] args) {
-        DeployFrame frame = new DeployFrame("../android");
-        frame.setVisible(true);
-    }
-
     private int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int height = Toolkit.getDefaultToolkit().getScreenSize().height;
     private int windowsWidth = 600;
@@ -220,6 +214,9 @@ public class DeployFrame extends JFrame {
                 switch (TOOLS) {
                     case "Artifactory":
                         deployType = Property.ARTIFACTORY;
+                        break;
+                    case "Jcenter":
+                        deployType = Property.JCENTER;
                         break;
                 }
 

@@ -90,7 +90,7 @@ public abstract class BaseDeploy {
             e.printStackTrace();
         }
         if (gradleText == null) return false;
-        log(gradlePath);
+        log("读取配置文件：" + gradlePath);
         //备份build.gradle
         backupFile(gradleFile);
         //追加配置内容
@@ -139,7 +139,7 @@ public abstract class BaseDeploy {
             e.printStackTrace();
         }
         if (gradleText == null) return false;
-        log(gradlePath);
+        log("读取配置文件：" + gradlePath);
         //备份build.gradle
         backupFile(file);
         //追加配置内容

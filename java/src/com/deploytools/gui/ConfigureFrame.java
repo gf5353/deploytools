@@ -45,14 +45,14 @@ public class ConfigureFrame extends JFrame {
             JPanel configJPanel = new JPanel();
             Properties properties = localCache.getProperties();
             configJPanel.setLayout(new GridLayout(properties.size(), 2));
-            configJPanel.setSize(100,100);
+            configJPanel.setSize(100, 100);
 
             Enumeration<?> enu = properties.propertyNames();
             jTextFieldMap.clear();
             while (enu.hasMoreElements()) {
                 Object key = enu.nextElement();
                 if ("TOOLS".equals(key)) continue;
-                JLabel label=new JLabel(key.toString());
+                JLabel label = new JLabel(key.toString());
                 label.setBorder(new EmptyBorder(10, 5, 10, 5));
                 configJPanel.add(label);
                 JTextField jTextField = new JTextField();
@@ -72,6 +72,7 @@ public class ConfigureFrame extends JFrame {
             comboBox = new JComboBox();
             comboBox.addItem("Nexus");
             comboBox.addItem("Artifactory");
+            comboBox.addItem("Jcenter");
             comboBox.setSelectedItem(tools);
 
             deployToolsPanel.add(comboBox);

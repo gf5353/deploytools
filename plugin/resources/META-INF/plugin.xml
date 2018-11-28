@@ -1,17 +1,16 @@
 <idea-plugin>
-    <id>com.your.company.unique.plugin.id</id>
-    <name>Plugin display name here</name>
+    <id>com.deploytools.plugin</id>
+    <name>MavenDeploy</name>
     <version>1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="562401002@qq.com" url="https://gf5353.github.io">http://gufei.online/</vendor>
 
     <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      支持多版本maven仓库上传<br>
     ]]></description>
 
     <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      支持多版本maven仓库上传<br>
+
     ]]>
     </change-notes>
 
@@ -27,7 +26,6 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
     </extensions>
-
     <actions>
         <!-- Add your actions here -->
         <group id="MyPlugin.SampleMenu" text="Mvn Deploy" description="mvn deploy">

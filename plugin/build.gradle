@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version "0.3.12"
+}
+
+group 'plugin'
+version project.version
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+intellij {
+    version '2018.2.4'
+    pluginName 'MavenDeploy'
+
+}
+publishPlugin {
+    username 'gf5353'
+    password '9ac187334dbc227f6d2e082316092f7cc3cfe4d2'
+    channels 'nightly'
+}
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}

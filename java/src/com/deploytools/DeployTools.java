@@ -1,6 +1,7 @@
 package com.deploytools;
 
 import com.deploytools.config.MavenConfig;
+import com.deploytools.gui.DeployFrame;
 import com.deploytools.utils.MavenDeploy;
 import com.deploytools.utils.Property;
 
@@ -76,4 +77,9 @@ public class DeployTools {
         }
     }
 
+
+    public static void main(String[] args) {
+        DeployFrame frame = new DeployFrame("../android");
+        frame.setVisible(true);
+    }
 }

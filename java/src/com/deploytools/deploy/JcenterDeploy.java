@@ -1,5 +1,6 @@
 package com.deploytools.deploy;
 
+import com.deploytools.config.ConfigCreator;
 import com.deploytools.utils.ExecuteResult;
 import com.deploytools.utils.Property;
 
@@ -9,16 +10,29 @@ import com.deploytools.utils.Property;
 public class JcenterDeploy extends BaseDeploy {
     @Override
     public ExecuteResult deploy(Property property) {
-        return null;
+        String publish = ":%s:bintrayUpload";
+        ExecuteResult executeResult = execute(String.format(publish, property.getModuleName()));
+        return executeResult;
     }
 
     @Override
     public boolean configureGradle(Property property) {
-        return false;
+        boolean isSuccess = createBuildGradle(property, ConfigCreator.getResourcePath()
+                + "jcenter/build.gradle");
+
+        if (isSuccess) {
+            isSuccess = createModuleBuildGradle(property, ConfigCreator.getResourcePath()
+                    + "jcenter/push.gradle");
+        }
+        return isSuccess;
     }
 
     @Override
     public boolean cleanConfigure(Property property) {
-        return false;
+        boolean isSuccess = delBuildGradle(property);
+        if (isSuccess) {
+            isSuccess = delModuleBuildGradle(property);
+        }
+        return isSuccess;
     }
 }

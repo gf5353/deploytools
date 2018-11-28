@@ -1,9 +1,6 @@
 package com.deploytools.utils;
 
-import com.deploytools.deploy.ArtifactoryDeploy;
-import com.deploytools.deploy.BaseDeploy;
-import com.deploytools.deploy.FileDeploy;
-import com.deploytools.deploy.NexusDeploy;
+import com.deploytools.deploy.*;
 
 import java.io.File;
 
@@ -31,6 +28,10 @@ public class MavenDeploy {
                 case Property.ARTIFACTORY:
                     deploy = new ArtifactoryDeploy();
                     deployName = "Artifactory";
+                    break;
+                case Property.JCENTER:
+                    deploy = new JcenterDeploy();
+                    deployName = "Jcenter";
                     break;
                 default: {
                     deploy = new NexusDeploy();
