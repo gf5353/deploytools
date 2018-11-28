@@ -15,4 +15,3 @@ java -jar deploytools.jar
 ```
 Settings>Plugins>install plugin from disk
 ```
-
