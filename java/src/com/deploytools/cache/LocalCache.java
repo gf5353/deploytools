@@ -1,5 +1,6 @@
 package com.deploytools.cache;
 
+import com.deploytools.DeployTools;
 import com.deploytools.utils.FileUtils;
 
 import java.io.*;
@@ -21,10 +22,15 @@ public class LocalCache {
     }
 
     private LocalCache() {
+
+    }
+
+    public void loadConfig() {
         String path = System.getProperties().getProperty("user.home") + "/" + PATH_CACHE + "/" + FILE_CONFIG;
         File file = new File(path);
         try {
             if (!file.isFile()) {
+                file.getParentFile().mkdirs();
                 //创建配置文件
                 String config = "URL =\n" +
                         "USER =\n" +
@@ -34,18 +40,17 @@ public class LocalCache {
                         "REPOKEY =\n" +
                         "TOOLS=Nexus\n";
                 FileUtils.writFile(file, config);
+                DeployTools.getInstance().getiLog().log("Create a configuration file in the user directory");
             }
             properties = new Properties();
-            try {
-                // 通过输入缓冲流进行读取配置文件
-                InputStream InputStream = new BufferedInputStream(new FileInputStream(file));
-                // 加载输入流
-                properties.load(InputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // 通过输入缓冲流进行读取配置文件
+            InputStream InputStream = new BufferedInputStream(new FileInputStream(file));
+//                // 加载输入流
+            properties.load(InputStream);
         } catch (Exception e) {
             e.printStackTrace();
+            DeployTools.getInstance().getiLog().log(e.getMessage());
+
         }
     }
 
@@ -74,5 +79,6 @@ public class LocalCache {
             }
         }
     }
+
 
 }

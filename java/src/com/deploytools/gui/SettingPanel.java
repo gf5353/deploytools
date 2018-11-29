@@ -28,7 +28,7 @@ public class SettingPanel extends JPanel {
         setLayout(new GridLayout(2, 1));
 
         JPanel jPanel = new JPanel();
-        jPanel.add(new JLabel("模块名："));
+        jPanel.add(new JLabel("ModuleName："));
 
         comboBox = new JComboBox();
         comboBox.addActionListener(new AbstractAction() {
@@ -52,10 +52,10 @@ public class SettingPanel extends JPanel {
         }
         jPanel.add(comboBox);
 
-        jPanel.add(new JLabel("版本号："));
+        jPanel.add(new JLabel("Version："));
         textField = new JTextField(10);
         jPanel.add(textField);
-        JButton jButton = new JButton("发布");
+        JButton jButton = new JButton("deploy");
         jButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,7 +71,7 @@ public class SettingPanel extends JPanel {
 
 
         JPanel filePanel = new JPanel();
-        JButton fileButton = new JButton("选择文件");
+        JButton fileButton = new JButton("Select the file");
         fileButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,15 +87,15 @@ public class SettingPanel extends JPanel {
             }
         });
         filePanel.add(fileButton);
-        filePanel.add(new JLabel("文件模块名："));
+        filePanel.add(new JLabel("FileModuleName："));
         etFileName = new JTextField(15);
         filePanel.add(etFileName);
-        filePanel.add(new JLabel("版本号："));
+        filePanel.add(new JLabel("Version："));
         etFileVer = new JTextField(10);
         filePanel.add(etFileVer);
 
 
-        JButton jButton2 = new JButton("发布");
+        JButton jButton2 = new JButton("deploy");
         jButton2.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,7 +104,7 @@ public class SettingPanel extends JPanel {
                 File file = null;
                 if (jFileChooser != null) {
                     file = jFileChooser.getSelectedFile();
-                    DeployTools.getInstance().getiLog().log("选择文件路径:" + file.getPath());
+                    DeployTools.getInstance().getiLog().log("Select the file Path:" + file.getPath());
                 }
                 if (onSettingListener != null) {
                     onSettingListener.onDeploy(name, version, file);

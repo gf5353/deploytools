@@ -1,15 +1,16 @@
 <idea-plugin>
     <id>com.deploytools.plugin</id>
     <name>MavenDeploy</name>
-    <version>1.1</version>
-    <vendor email="562401002@qq.com" url="https://gf5353.github.io">http://gufei.online/</vendor>
+    <version>1.2</version>
+    <vendor email="562401002@qq.com" url="https://github.com/gf5353/deploytools">https://github.com/gf5353/deploytools/</vendor>
 
     <description><![CDATA[
       This ItelliJ IDEA plugin can help Android developers release different maven repositories with zero configuration, such as Nexus, Artifactory, Jcenter<br>
     ]]></description>
 
     <change-notes><![CDATA[
-      Support for Nexus, Artifactory, Jcenter release<br>
+     1.1 Support for Nexus, Artifactory, Jcenter release<br>
+     1.2 Repair windows system can not open the configuration<br>
     ]]>
     </change-notes>
 

@@ -2,6 +2,7 @@ package com.deploytools;
 
 import com.deploytools.config.MavenConfig;
 import com.deploytools.gui.DeployFrame;
+import com.deploytools.utils.ExecutorTools;
 import com.deploytools.utils.MavenDeploy;
 import com.deploytools.utils.Property;
 
@@ -13,7 +14,6 @@ import java.util.concurrent.Executors;
  */
 public class DeployTools {
     private static DeployTools instance;
-    private ExecutorService mSingleThreadPool = Executors.newSingleThreadExecutor();
     private MavenConfig mavenConfig;
     private MavenDeploy mavenDeploy = new MavenDeploy();
     private ILog iLog = new SamleLog();
@@ -39,7 +39,7 @@ public class DeployTools {
     }
 
     public void deploy(Property upgradeProperty) {
-        mSingleThreadPool.execute(new DeployRunnable(upgradeProperty));
+        ExecutorTools.getInstance().execute(new DeployRunnable(upgradeProperty));
     }
 
 
@@ -52,7 +52,6 @@ public class DeployTools {
 
         @Override
         public void run() {
-//            System.out.println("DeployRunnable=" + Thread.currentThread().getName());
             mavenDeploy.deploy(upgradeProperty);
         }
     }
@@ -78,8 +77,5 @@ public class DeployTools {
     }
 
 
-    public static void main(String[] args) {
-        DeployFrame frame = new DeployFrame("../android");
-        frame.setVisible(true);
-    }
+
 }

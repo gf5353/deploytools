@@ -38,7 +38,7 @@ public class MavenDeploy {
                 }
             }
         }
-        deploy.log(String.format("正在使用%s上传", deployName));
+        deploy.log(String.format("Uploading using%s", deployName));
 
         deploy.configureGradle(property);
 

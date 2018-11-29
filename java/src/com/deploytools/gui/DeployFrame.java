@@ -43,7 +43,7 @@ public class DeployFrame extends JFrame {
         mavenConfig.projectPath = this.projectPath;
         DeployTools.getInstance().setMavenConfig(mavenConfig);
 
-        setTitle("Deploy");
+        setTitle("MavenDeploy");
         setResizable(true);//禁止缩放
         setAlwaysOnTop(false);//始终处于顶部
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -57,6 +57,7 @@ public class DeployFrame extends JFrame {
         DeployTools.getInstance().setiLog(new DeployTools.ILog() {
             @Override
             public void log(String logTxt) {
+                System.out.println(logTxt);
                 if (logPanel != null) {
                     logPanel.append(logTxt);
                 }
@@ -69,8 +70,9 @@ public class DeployFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 //创建并添加各菜单，注意：菜单的快捷键是同时按下Alt键和字母键，方法setMnemonic('F')是设置快捷键为Alt +Ｆ
-        JMenu menuFile = new JMenu("发布配置(F)")
-//                , menuEdit = new JMenu("编辑(E)"), menuView = new JMenu("查看(V)")
+        JMenu menuFile = new JMenu("Setting(F)")
+//                , menuEdit = new JMenu("About(E)")
+// , menuView = new JMenu("查看(V)")
                 ;
         menuFile.setMnemonic('F');
 //        menuEdit.setMnemonic('E');
@@ -79,8 +81,20 @@ public class DeployFrame extends JFrame {
 //        menuBar.add(menuEdit);
 //        menuBar.add(menuView);
 
+//        menuEdit.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+//                try {
+//                    Runtime.getRuntime().exec(
+//                            "cmd   /c   start   https://github.com/gf5353/deploytools");
+//                } catch (IOException exception) {
+//                    exception.printStackTrace();
+//                }
+//            }
+//        });
         //添加“文件”菜单的各菜单项
-        JMenu itemOpen = new JMenu("打开");
+        JMenu itemOpen = new JMenu("open");
         itemOpen.setMnemonic('O');
         itemOpen.addMouseListener(new MouseAdapter() {
             @Override
@@ -138,7 +152,10 @@ public class DeployFrame extends JFrame {
             } else {
                 JPanel jPanel = new JPanel();
                 jPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-                jPanel.add(new JLabel("非android项目或者读取不到settings.gradle文件\n" + this.projectPath));
+                String html = String.format("<html><body style=\"text-align:center;\">%s<body></html>", "Non-android project or can't read the settings.gradle file,\n" +
+                        "Please check the path<br/>" +
+                        "(非android项目或者读取不到settings.gradle文件,请检查路径)<br/>" + this.projectPath);
+                jPanel.add(new JLabel(html));
                 setContentPane(jPanel);
             }
         } catch (Exception e) {
@@ -160,11 +177,11 @@ public class DeployFrame extends JFrame {
         @Override
         public void onDeploy(String modelName, String version, File file) {
             if (StringUtls.isEmpty(version)) {
-                toast("上传模块名不能为空");
+                toast("Upload module name cannot be empty");
                 return;
             }
             if (StringUtls.isEmpty(version)) {
-                toast("版本号不能为空");
+                toast("Version number cannot be empty");
                 return;
             }
 
@@ -172,27 +189,27 @@ public class DeployFrame extends JFrame {
             if (localCache != null) {
                 String URL = localCache.getProperty("URL");
                 if (StringUtls.isEmpty(URL)) {
-                    toast("URL不能为空");
+                    toast("URL cannot be empty");
                     return;
                 }
                 String USER = localCache.getProperty("USER");
                 if (StringUtls.isEmpty(USER)) {
-                    toast("USER不能为空");
+                    toast("USER can't be empty");
                     return;
                 }
                 String PASSWORD = localCache.getProperty("PASSWORD");
                 if (StringUtls.isEmpty(PASSWORD)) {
-                    toast("PASSWORD不能为空");
+                    toast("PASSWORD cannot be empty");
                     return;
                 }
                 String GROUPID = localCache.getProperty("GROUPID");
                 if (StringUtls.isEmpty(GROUPID)) {
-                    toast("GROUPID不能为空");
+                    toast("GROUPID cannot be empty");
                     return;
                 }
                 String REPOKEY = localCache.getProperty("REPOKEY");
                 if (StringUtls.isEmpty(REPOKEY)) {
-                    toast("REPOKEY不能为空");
+                    toast("REPOKEY cannot be empty");
                     return;
                 }
                 String TOOLS = localCache.getProperty("TOOLS");
@@ -236,4 +253,11 @@ public class DeployFrame extends JFrame {
 
         }
     };
+
+    public static void main(String[] args) {
+        DeployFrame frame = new DeployFrame(
+                "../android"
+        );
+        frame.setVisible(true);
+    }
 }

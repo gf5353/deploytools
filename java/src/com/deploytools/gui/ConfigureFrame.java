@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * 发布设置页面
+ */
 public class ConfigureFrame extends JFrame {
     private int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -20,7 +23,7 @@ public class ConfigureFrame extends JFrame {
     private JComboBox comboBox;
 
     public ConfigureFrame() throws HeadlessException {
-        setTitle("发布配置");
+        setTitle("Setting");
         setResizable(true);//禁止缩放
         setAlwaysOnTop(false);//始终处于顶部
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -34,6 +37,7 @@ public class ConfigureFrame extends JFrame {
     private void initView() {
         LocalCache localCache = LocalCache.getInstance();
         if (localCache != null) {
+            localCache.loadConfig();
 
             JPanel rootJPanel = new JPanel();
             rootJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,8 +48,11 @@ public class ConfigureFrame extends JFrame {
             //配置信息
             JPanel configJPanel = new JPanel();
             Properties properties = localCache.getProperties();
+            if (properties == null) {
+                return;
+            }
             configJPanel.setLayout(new GridLayout(properties.size(), 2));
-            configJPanel.setSize(100, 100);
+//            configJPanel.setSize(100, 100);
 
             Enumeration<?> enu = properties.propertyNames();
             jTextFieldMap.clear();
@@ -67,7 +74,7 @@ public class ConfigureFrame extends JFrame {
             //发布工具
             JPanel deployToolsPanel = new JPanel();
             deployToolsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-            deployToolsPanel.add(new JLabel("发布工具:"));
+            deployToolsPanel.add(new JLabel("tools:"));
             String tools = properties.getProperty("TOOLS");
             comboBox = new JComboBox();
             comboBox.addItem("Nexus");
@@ -81,7 +88,7 @@ public class ConfigureFrame extends JFrame {
             //保存按钮
             JPanel btnJPanel = new JPanel();
             btnJPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-            JButton btnSave = new JButton("保存");
+            JButton btnSave = new JButton("save");
             btnSave.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -94,17 +101,16 @@ public class ConfigureFrame extends JFrame {
                         String tools = (String) comboBox.getSelectedItem();
                         localCache.put("TOOLS", tools);
                         localCache.save();
-                        JOptionPane.showMessageDialog(rootJPanel, "保存成功");
+                        JOptionPane.showMessageDialog(rootJPanel, "Successfully saved");
                         dispose();
                         return;
                     }
-                    JOptionPane.showMessageDialog(rootJPanel, "保存失败");
+                    JOptionPane.showMessageDialog(rootJPanel, "Save failed");
 
                 }
             });
             btnJPanel.add(btnSave);
             rootJPanel.add(btnJPanel);
-
 
         }
     }
