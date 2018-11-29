@@ -3,6 +3,7 @@ package com.deploytools.gui;
 
 import com.deploytools.DeployTools;
 import com.deploytools.utils.FileUtils;
+import com.deploytools.utils.StringUtls;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,6 +105,10 @@ public class SettingPanel extends JPanel {
                 File file = null;
                 if (jFileChooser != null) {
                     file = jFileChooser.getSelectedFile();
+                    if (file == null || StringUtls.isEmpty(file.getPath())) {
+                        JOptionPane.showMessageDialog(SettingPanel.this, "you need select the file");
+                        return;
+                    }
                     DeployTools.getInstance().getiLog().log("Select the file Path:" + file.getPath());
                 }
                 if (onSettingListener != null) {

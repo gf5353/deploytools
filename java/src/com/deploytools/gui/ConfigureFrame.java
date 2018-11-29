@@ -37,7 +37,6 @@ public class ConfigureFrame extends JFrame {
     private void initView() {
         LocalCache localCache = LocalCache.getInstance();
         if (localCache != null) {
-            localCache.loadConfig();
 
             JPanel rootJPanel = new JPanel();
             rootJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -22,7 +22,7 @@ public class LocalCache {
     }
 
     private LocalCache() {
-
+        loadConfig();
     }
 
     public void loadConfig() {
