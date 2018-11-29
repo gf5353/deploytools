@@ -19,5 +19,6 @@ Settings>Plugins>install plugin from disk
 
  1. 配置发布的账号信息
 ![在这里插入图片描述](https://github.com/gf5353/deploytools/blob/master/img/2018-11-26%2018-22-03.png?raw=true)
+ 
  2. 选择模块填写版本号进行发布，或者选择文件进行单独发布
 ![在这里插入图片描述](https://github.com/gf5353/deploytools/blob/master/img/2018-11-26%2018-21-17.png?raw=true)
