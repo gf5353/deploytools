@@ -70,32 +70,12 @@ public class DeployFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 //创建并添加各菜单，注意：菜单的快捷键是同时按下Alt键和字母键，方法setMnemonic('F')是设置快捷键为Alt +Ｆ
-        JMenu menuFile = new JMenu("Setting(F)")
-//                , menuEdit = new JMenu("About(E)")
-// , menuView = new JMenu("查看(V)")
-                ;
+        JMenu menuFile = new JMenu("Setting(F)");
         menuFile.setMnemonic('F');
-//        menuEdit.setMnemonic('E');
-//        menuView.setMnemonic('V');
         menuBar.add(menuFile);
-//        menuBar.add(menuEdit);
-//        menuBar.add(menuView);
-
-//        menuEdit.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                try {
-//                    Runtime.getRuntime().exec(
-//                            "cmd   /c   start   https://github.com/gf5353/deploytools");
-//                } catch (IOException exception) {
-//                    exception.printStackTrace();
-//                }
-//            }
-//        });
         //添加“文件”菜单的各菜单项
-        JMenu itemOpen = new JMenu("open");
-        itemOpen.setMnemonic('O');
+        JMenu itemOpen = new JMenu("config");
+        itemOpen.setMnemonic('C');
         itemOpen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -104,26 +84,19 @@ public class DeployFrame extends JFrame {
                 configureFrame.setVisible(true);
             }
         });
-//        JMenuItem itemOpen1 = new JMenuItem("打开x");
-//        JMenuItem itemOpen2 = new JMenuItem("打开y");
-//        itemOpen.add(itemOpen1);
-//        itemOpen.add(itemOpen2);
-//        JMenuItem itemSave = new JMenuItem("保存");
-//        itemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
         menuFile.add(itemOpen);
-//        menuFile.add(itemSave);
-
-        //添加“编辑”菜单的各菜单项
-//        JMenuItem itemCopy = new JMenuItem("复制");
-//        itemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
-//        menuEdit.add(itemCopy);
-//
-//        //添加“查看”菜单的各菜单项
-//        JMenuItem itemStop = new JMenuItem("停止"), itemRefresh = new JMenuItem("刷新");
-//        itemStop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-//        itemRefresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
-//        menuView.add(itemStop);
-//        menuView.add(itemRefresh);
+        JMenu fileDeployJMenu = new JMenu("fileDeploy");
+        fileDeployJMenu.setMnemonic('F');
+        fileDeployJMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                FileDeployFrame fileDeployFrame = new FileDeployFrame();
+                fileDeployFrame.setOnSettingListener(onDeployClickListener);
+                fileDeployFrame.setVisible(true);
+            }
+        });
+        menuFile.add(fileDeployJMenu);
     }
 
     private LogPanel logPanel;
@@ -164,21 +137,17 @@ public class DeployFrame extends JFrame {
     }
 
 
-    SettingPanel.OnSettingListener onDeployClickListener = new SettingPanel.OnSettingListener() {
+    OnSettingListener onDeployClickListener = new OnSettingListener() {
         private void toast(String msg) {
             JOptionPane.showMessageDialog(DeployFrame.this, msg);
 
         }
 
-        @Override
-        public void onSelectedName(String name) {
-        }
 
         @Override
         public void onDeploy(String modelName, String version, File file) {
             if (StringUtls.isEmpty(version)) {
                 toast("Upload module name cannot be empty");
-                return;
             }
             if (StringUtls.isEmpty(version)) {
                 toast("Version number cannot be empty");
@@ -208,10 +177,10 @@ public class DeployFrame extends JFrame {
                     return;
                 }
                 String REPOKEY = localCache.getProperty("REPOKEY");
-                if (StringUtls.isEmpty(REPOKEY)) {
-                    toast("REPOKEY cannot be empty");
-                    return;
-                }
+//                if (StringUtls.isEmpty(REPOKEY)) {
+//                    toast("REPOKEY cannot be empty");
+//                    return;
+//                }
                 String TOOLS = localCache.getProperty("TOOLS");
 //                System.out.println("URL=" + URL + "\nUSER=" + USER + "\nPASSWORD=" + PASSWORD + "\nGROUPID=" + GROUPID + "\nARTIFACTID="
 //                        + ARTIFACTID + "\nVERSION=" + VERSION + "\nREPOKEY=" + REPOKEY);
@@ -255,8 +224,13 @@ public class DeployFrame extends JFrame {
     };
 
     public static void main(String[] args) {
+        File file = new File("../android");
+        String projectPath = "";
+        if (file.isDirectory()) {
+            projectPath = file.getAbsolutePath();
+        }
         DeployFrame frame = new DeployFrame(
-                "../android"
+                projectPath
         );
         frame.setVisible(true);
     }
