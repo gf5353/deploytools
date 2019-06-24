@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.deploytools.plugin</id>
     <name>MavenDeploy</name>
-    <version>1.2</version>
+    <version>1.3</version>
     <vendor email="562401002@qq.com" url="https://github.com/gf5353/deploytools">https://github.com/gf5353/deploytools/</vendor>
 
     <description><![CDATA[
@@ -11,6 +11,7 @@
     <change-notes><![CDATA[
      1.1 Support for Nexus, Artifactory, Jcenter release<br>
      1.2 Repair windows system can not open the configuration<br>
+     1.3 Added Publishing Name Editor<br>
     ]]>
     </change-notes>
 
