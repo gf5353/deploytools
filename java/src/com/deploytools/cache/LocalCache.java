@@ -27,7 +27,7 @@ public class LocalCache {
     }
 
     public void loadConfig() {
-        String path = System.getProperties().getProperty("user.home") + "/" + PATH_CACHE + "/" + FILE_CONFIG;
+        String path = getConfigPath();
         File file = new File(path);
         try {
             if (!file.isFile()) {
@@ -67,9 +67,14 @@ public class LocalCache {
         return properties;
     }
 
+    public String getConfigPath() {
+        String path = System.getProperties().getProperty("user.home") + "/" + PATH_CACHE + "/" + FILE_CONFIG;
+        return path;
+    }
+
     public void save() {
         if (properties != null) {
-            String path = System.getProperties().getProperty("user.home") + "/" + PATH_CACHE + "/" + FILE_CONFIG;
+            String path = getConfigPath();
             File file = new File(path);
             try {
                 FileOutputStream oFile = new FileOutputStream(file, false);
@@ -79,6 +84,11 @@ public class LocalCache {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void importConfig(String path) {
+        FileUtils.copy(new File(path), new File(getConfigPath()));
+        loadConfig();
     }
 
 

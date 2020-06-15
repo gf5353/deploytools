@@ -171,11 +171,6 @@ public abstract class BaseDeploy {
     public ExecuteResult execute(String command) {
         try {
             log(command);
-//            System.out.println("线程状态 :   " + processStatus.get(Thread.currentThread().getId()));
-//            if (processStatus.get(Thread.currentThread().getId()) < 0) {
-//
-//                return new ExecuteResult(1, "cancel by user", "cancel by user");
-//            }
             Process process = null;
             String cd = getCD();
             if (DeviceTools.isMac()) {
@@ -187,22 +182,12 @@ public abstract class BaseDeploy {
                 process = Runtime.getRuntime().exec(cmd);
             }
 
-//            if (executeListener != null) {
-//                executeListener.onExecute("\nExecute Command \n: [" + command + "]\n");
-//            }
-//            processMap.put(Thread.currentThread().getId(), process);
             String msg = readStream(process.getInputStream());
             String error = readStream(process.getErrorStream());
             int result = process.waitFor();//0 成功
-//            System.out.println("result=" + result);
-//            processMap.remove(Thread.currentThread().getId());
             return new ExecuteResult(result, msg, error);
         } catch (Exception e) {
             e.printStackTrace();
-//            if (executeListener != null) {
-//                executeListener.onExecute(e.getMessage());
-//            }
-//            processMap.remove(Thread.currentThread().getId());
             return new ExecuteResult(1, "", e.getMessage());
         }
     }
