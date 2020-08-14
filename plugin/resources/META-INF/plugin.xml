@@ -2,8 +2,10 @@
     <id>com.deploytools.plugin</id>
     <name>MavenDeploy</name>
     <version>1.4</version>
-    <vendor email="562401002@qq.com" url="https://github.com/gf5353/deploytools">https://github.com/gf5353/deploytools/</vendor>
-
+    <vendor email="562401002@qq.com" url="https://github.com/gf5353/deploytools">
+        https://github.com/gf5353/deploytools/
+    </vendor>
+    <depends>com.intellij.modules.java</depends>
     <description><![CDATA[
       This ItelliJ IDEA plugin can help Android developers release different maven repositories with zero configuration, such as Nexus, Artifactory, Jcenter<br>
     ]]></description>
