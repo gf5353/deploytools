@@ -11,9 +11,21 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main' // 指定源码目录
+        }
+        resources {
+            srcDir 'resources' //资源目录
+        }
+    }
+}
 dependencies {
+    compile fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
+
 }
 intellij {
     version '2018.2.4'
@@ -26,7 +38,12 @@ publishPlugin {
     channels 'nightly'
 }
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    changeNotes """<![CDATA[
+     1.1 Support for Nexus, Artifactory, Jcenter release<br>
+     1.2 Repair windows system can not open the configuration<br>
+     1.3 Added Publishing Name Editor<br>
+     1.4 Added properties import<br>
+    ]]>"""
+    sinceBuild "173"
+    untilBuild(null)
 }

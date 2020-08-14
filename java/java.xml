@@ -84,6 +84,9 @@
   <property name="project.jdk.home" value="${jdk.home.1.8}"/>
   <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
   <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Application Server Libraries -->
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
   <path id="javac2.classpath">
@@ -111,5 +114,46 @@
   
   <target name="build.modules" depends="init, clean, compile.module.java" description="build all modules"/>
   
-  <target name="all" depends="build.modules" description="build all"/>
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.jar" value="${basedir}/out/artifacts/jar"/>
+    <property name="artifact.output.resources" value="${basedir}/out/artifacts/resources"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.java.jar" value="${artifacts.temp.dir}/java.jar"/>
+    <property name="temp.jar.path.resources.jar" value="${artifacts.temp.dir}/resources.jar"/>
+  </target>
+  
+  <target name="artifact.jar" depends="init.artifacts, compile.module.java" description="Build &#39;jar&#39; artifact">
+    <property name="artifact.temp.output.jar" value="${artifacts.temp.dir}/jar"/>
+    <mkdir dir="${artifact.temp.output.jar}"/>
+    <jar destfile="${temp.jar.path.java.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${java.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.java.jar}" tofile="${artifact.temp.output.jar}/java.jar"/>
+  </target>
+  
+  <target name="artifact.resources" depends="init.artifacts" description="Build &#39;resources&#39; artifact">
+    <property name="artifact.temp.output.resources" value="${artifacts.temp.dir}/resources"/>
+    <mkdir dir="${artifact.temp.output.resources}"/>
+    <jar destfile="${temp.jar.path.resources.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${basedir}/resources/resources"/>
+    </jar>
+    <copy file="${temp.jar.path.resources.jar}" tofile="${artifact.temp.output.resources}/resources.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.jar, artifact.resources" description="Build all artifacts">
+    <mkdir dir="${artifact.output.jar}"/>
+    <copy todir="${artifact.output.jar}">
+      <fileset dir="${artifact.temp.output.jar}"/>
+    </copy>
+    <mkdir dir="${artifact.output.resources}"/>
+    <copy todir="${artifact.output.resources}">
+      <fileset dir="${artifact.temp.output.resources}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>

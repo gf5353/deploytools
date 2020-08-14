@@ -19,19 +19,6 @@ install {
                     }
                 }
 
-//                developers {
-//                    developer {  //填写的一些基本信息
-//                        id 'gf5353'
-//                        name 'Fei.Gu'
-//                        email '562401002@qq.com'
-//                    }
-//                }
-
-//                scm {
-//                    connection ''//gitUrl
-//                    developerConnection ''//gitUrl
-//                    url ''//siteUrl
-//                }
             }
 
         }
